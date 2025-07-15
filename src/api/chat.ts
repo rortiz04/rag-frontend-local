@@ -19,7 +19,10 @@ export const chatApi = async (message: string): Promise<ChatResponse> => {
     }
 
     const data = await response.json();
-    return { answer: data.answer };
+    return { 
+      answer: data.answer,
+      sources: data.sources || []
+    };
   } catch (error) {
     console.error('Error calling chat API:', error);
     throw new Error('Error al conectar con el servidor. Por favor, verifique que el backend esté ejecutándose.');

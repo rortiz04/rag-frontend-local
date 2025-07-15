@@ -34,7 +34,8 @@ const Index = () => {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.answer,
-        timestamp: new Date()
+        timestamp: new Date(),
+        sources: data.sources
       };
 
       setMessages(prev => [...prev, assistantMessage]);

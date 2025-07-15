@@ -25,6 +25,21 @@ const MessageBubble = ({ message }: MessageBubbleProps) => {
           }`}
         >
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+          
+          {/* Mostrar fuentes si existen */}
+          {!isUser && message.sources && message.sources.length > 0 && (
+            <div className="mt-3 pt-2 border-t border-gray-300">
+              <p className="text-xs text-gray-600 font-semibold mb-1">Fuentes:</p>
+              <ol className="text-xs text-gray-600 space-y-1 list-decimal list-inside">
+                {message.sources.map((source, index) => (
+                  <li key={index} className="text-blue-600">
+                    <span className="text-gray-600">{source}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+          
           <p className="text-xs text-gray-500 mt-2">
             {message.timestamp.toLocaleTimeString('es-AR', {
               hour: '2-digit',
