@@ -7,9 +7,10 @@ import { ChatMessage } from '@/types/chat';
 interface ChatWindowProps {
   messages: ChatMessage[];
   isLoading: boolean;
+  onFeedback?: (id: string, value: 'like' | 'dislike', comment?: string) => void;
 }
 
-const ChatWindow = ({ messages, isLoading }: ChatWindowProps) => {
+const ChatWindow = ({ messages, isLoading, onFeedback }: ChatWindowProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const ChatWindow = ({ messages, isLoading }: ChatWindowProps) => {
       className="flex-1 overflow-y-auto p-4 space-y-4 bg-white"
     >
       {messages.map((message) => (
-        <MessageBubble key={message.id} message={message} />
+        <MessageBubble key={message.id} message={message} onFeedback={onFeedback} />
       ))}
       {isLoading && (
         <div className="flex justify-start">

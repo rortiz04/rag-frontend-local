@@ -51,6 +51,12 @@ const Index = () => {
     }
   };
 
+  const handleFeedback = (id: string, value: 'like' | 'dislike', comment?: string) => {
+    setMessages(prev => prev.map(msg =>
+      msg.id === id ? { ...msg, feedback: { value, comment, sent: true } } : msg
+    ));
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -86,7 +92,7 @@ const Index = () => {
             </p>
           </div>
           
-          <ChatWindow messages={messages} isLoading={isLoading} />
+          <ChatWindow messages={messages} isLoading={isLoading} onFeedback={handleFeedback} />
           <ChatBox onSendMessage={handleSendMessage} disabled={isLoading} />
         </div>
       </div>
