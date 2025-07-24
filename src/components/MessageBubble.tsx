@@ -74,6 +74,34 @@ const MessageBubble = ({ message, onFeedback }: MessageBubbleProps) => {
           }`}
         >
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+          
+          {/* Mostrar fuentes si existen */}
+          {message.sources && message.sources.length > 0 && (
+            <div className="mt-3 pt-2 border-t border-gray-200">
+              <p className="text-xs text-gray-600 font-semibold mb-2">Fuentes:</p>
+              <ul className="text-xs text-gray-600 space-y-1">
+                {message.sources.map((source, index) => (
+                  <li key={index} className="flex items-center">
+                    <span className="mr-2 font-semibold">{index + 1}.</span>
+                    {source.url && source.url !== `URL no disponible para ${source.filename}` ? (
+                      <a 
+                        href={source.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 hover:underline"
+                        title="Abrir documento PDF"
+                      >
+                        {source.filename}
+                      </a>
+                    ) : (
+                      <span className="text-gray-600">{source.filename}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
           <p className="text-xs text-gray-500 mt-2">
             {message.timestamp.toLocaleTimeString('es-AR', {
               hour: '2-digit',
