@@ -1,7 +1,9 @@
 
 export interface SourceLink {
   filename: string;
-  url: string;
+  url: string | null;
+  item_title?: string | null;
+  collection?: string | null;
 }
 
 export interface ChatMessage {

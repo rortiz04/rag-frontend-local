@@ -79,23 +79,39 @@ const MessageBubble = ({ message, onFeedback }: MessageBubbleProps) => {
           {message.sources && message.sources.length > 0 && (
             <div className="mt-3 pt-2 border-t border-gray-200">
               <p className="text-xs text-gray-600 font-semibold mb-2">Fuentes:</p>
-              <ul className="text-xs text-gray-600 space-y-1">
+              <ul className="text-xs text-gray-600 space-y-2">
                 {message.sources.map((source, index) => (
-                  <li key={index} className="flex items-center">
-                    <span className="mr-2 font-semibold">{index + 1}.</span>
-                    {source.url && source.url !== `URL no disponible para ${source.filename}` ? (
-                      <a 
-                        href={source.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 hover:underline"
-                        title="Abrir documento PDF"
-                      >
-                        {source.filename}
-                      </a>
-                    ) : (
-                      <span className="text-gray-600">{source.filename}</span>
-                    )}
+                  <li key={index} className="flex flex-col">
+                    <div className="flex items-start">
+                      <span className="mr-2 font-semibold mt-0.5">{index + 1}.</span>
+                      <div className="flex-1">
+                        {source.url ? (
+                          <a 
+                            href={source.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                            title="Ver documento en el Digesto UNC"
+                          >
+                            {source.item_title || source.filename}
+                          </a>
+                        ) : (
+                          <span className="text-gray-600 font-medium">
+                            {source.item_title || source.filename}
+                          </span>
+                        )}
+                        {source.collection && (
+                          <div className="text-xs text-gray-500 mt-1">
+                            📁 {source.collection}
+                          </div>
+                        )}
+                        {source.item_title && (
+                          <div className="text-xs text-gray-500 mt-1">
+                            📄 {source.filename}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </li>
                 ))}
               </ul>
