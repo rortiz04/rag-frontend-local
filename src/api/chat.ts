@@ -32,7 +32,7 @@ export const chatApi = async (message: string): Promise<ChatResponse> => {
 
     const data = await response.json();
 
-    // Ajustar a tu interfaz ChatResponseeee
+    // Ajustar a tu interfaz ChatResponse
     return { 
       answer: data.answer || data.output || "Sin respuesta",
       sources: data.sources || []

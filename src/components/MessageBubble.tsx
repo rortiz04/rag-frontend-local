@@ -31,7 +31,7 @@ const MessageBubble = ({ message, onFeedback }: MessageBubbleProps) => {
   const sendFeedback = async (value: 'like' | 'dislike', customComment?: string) => {
     setSending(true);
     try {
-      await fetch('http://127.0.0.1:8001/feedback', {
+      await fetch('https://n8n.psi.unc.edu.ar/webhook/835116e9-157a-4da4-9445-db0c8dad558f', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
