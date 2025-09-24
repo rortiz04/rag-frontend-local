@@ -1,17 +1,29 @@
-
 import { ChatResponse } from '@/types/chat';
 
-// Simulación del endpoint de chat RAG
+// Guardar el sessionId en localStorage para mantener la sesión
+const getSessionId = () => {
+  let sessionId = localStorage.getItem('sessionId');
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    localStorage.setItem('sessionId', sessionId);
+  }
+  return sessionId;
+};
+
 export const chatApi = async (message: string): Promise<ChatResponse> => {
   try {
-    const response = await fetch('http://127.0.0.1:8001/chat', {
+    const payload = {
+      sessionId: getSessionId(),
+      action: "sendMessage",
+      chatInput: message,
+    };
+
+    const response = await fetch('https://n8n.psi.unc.edu.ar/webhook/2b9e97d2-1e0d-4f05-89d3-d3b3446dcd31/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        question: message
-      })
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
@@ -19,8 +31,10 @@ export const chatApi = async (message: string): Promise<ChatResponse> => {
     }
 
     const data = await response.json();
+
+    // Ajustar a tu interfaz ChatResponse
     return { 
-      answer: data.answer,
+      answer: data.answer || data.output || "Sin respuesta",
       sources: data.sources || []
     };
   } catch (error) {
