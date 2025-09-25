@@ -36,6 +36,7 @@ const MessageBubble = ({ message, onFeedback }: MessageBubbleProps) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           respuesta_id: message.id,
+          mensaje: message.content, // Incluir el contenido del mensaje generado por el modelo
           feedback: value,
           comentario: value === 'dislike' ? (customComment ?? comment) : undefined
         })
